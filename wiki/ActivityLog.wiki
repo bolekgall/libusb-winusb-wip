@@ -1,0 +1,20 @@
+#summary Activity Log
+
+= Activity Log =
+
+This page holds the unofficial ToDo List / Activity Log for libusb-winusb
+
+
+== MAIN ==
+
+  * Add elementary HID (non WinUSB) handling so that we get the feel of how APIs should be broken down
+  * Detect WinUSB during enum to prevent WinUSB calls on non WinUSB devives
+
+
+== EXTRAS ==
+
+  * hotplug
+
+== BUGFIXES ==
+
+  * deviceless external hub random failure on descriptors. Is there anything we can do?
