@@ -17,4 +17,5 @@ o is there a way to disable google's <pre> colouring on this wiki?
 BUGFIXES:
 o deviceless external hub random failure on descriptors. Is there anything we can do?
   => check what's happening on the bus
+o SetupDI### call enumerates composite devices at the root ("usbccgp") rather than the leaves ("WinUSB") => we need access to the leaves
 }}}
