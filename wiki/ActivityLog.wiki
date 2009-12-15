@@ -9,7 +9,7 @@ This page holds the unofficial ToDo List / Activity Log for libusb-winusb
 
   * Add elementary HID (non WinUSB) handling so that we get the feel of how APIs should be broken down => without interface and endpoint access through HID layer, not sure how far we can get
   * Detect WinUSB during enum to prevent WinUSB calls on non WinUSB devives `[`DONE using driver string: 2009.12.13`]`
-  * Detect driverless devices during enum for future automated WinUSB driver addon
+  * Detect driverless devices during enum for future automated WinUSB driver addon `[`DONE conn_info.CurrentConfigurationValue false => priv->driver = "no_driver": 2009.12.14`]`
 
 
 == EXTRAS ==
