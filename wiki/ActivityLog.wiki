@@ -7,6 +7,7 @@ o detect WinUSB during enum to prevent WinUSB calls on non WinUSB devives [DONE 
 o detect driverless devices during enum for future automated WinUSB driver addon [DONE conn_info.CurrentConfigurationValue false => priv->driver = "no_driver": 2009.12.14]
 o actually read active configuration from conn_info {DONE: 2009.12.15]
 o comment the inf with regards to CoInstallers' choice and add provision for Multiple Interfaces (MI_##)
+o proper libusb test program (xusb)
 
 EXTRAS:
 o hotplug
