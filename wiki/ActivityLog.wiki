@@ -1,21 +1,38 @@
 = Activity Log =
 {{{
 MAIN:
-o add elementary HID (non WinUSB) handling so that we get the feel of how APIs should be broken down 
-  => without interface and endpoint access through HID layer, not sure how far we can get
 o detect WinUSB during enum to prevent WinUSB calls on non WinUSB devives [DONE using driver string: 2009.12.13]
-o detect driverless devices during enum for future automated WinUSB driver addon [DONE conn_info.CurrentConfigurationValue false => priv->driver = "no_driver": 2009.12.14]
-o actually read active configuration from conn_info {DONE: 2009.12.15]
+o detect driverless devices during enum for future automated WinUSB driver addon
+  - conn_info.CurrentConfigurationValue false => priv->driver = "no_driver" [DONE: 2009.12.14]
+o actually read active configuration from conn_info [DONE: 2009.12.15]
 o comment the inf with regards to CoInstallers' choice and add provision for Multiple Interfaces (MI_##)
-o proper libusb test program (xusb)
+o xusb winusb test application
+  - add string I/O to xusb [DONE: 2009.12.15]
+o async (polled/overlapped) I/O
+  - crude poll using OVERLAPPED pointers as fds + HasOverlappedIoCompleted [DONE: 2009.12.16]
+  - control transfers [DON]
+  - bulk/interrupt
+  - retrieve actual length
+  - create OVERLAPPED in open rather than submit and reuse it?
+o control fd ("fish in the pipe") for poll
+  => can we make it fly without modifying main if we use OVERLAPPED* for poll fds?
+o better/multiple API handling (refer to libusb-win32-v1)
+o multithreading
 
 EXTRAS:
+o add elementary HID (non WinUSB) handling so that we get the feel of how APIs should be broken down 
+  => without interface and endpoint access through HID layer, not sure how far we can get
 o hotplug
-o automated driver installation
-o is there a way to disable google's <pre> colouring on this wiki?
+o automated driver installation. requires: (install will need to  - is that doable easily?)
+  - proper detection on driverless devices (code 28?)
+  - detection of composite devices and (in the current MI_##-less scheme) "upgrade" of usbccgp.sys to WinUSB
+o is there a way to disable google's annoying <pre> colouring on this wiki?
+o use usbi list functions for our hcd chained list
 
 BUGFIXES:
 o deviceless external hub random failure on descriptors. Is there anything we can do?
   => check what's happening on the bus
-o SetupDI### call enumerates composite devices at the root ("usbccgp") rather than the leaves ("WinUSB") => we need access to the leaves
+o SetupDI### call enumerates composite devices at the root ("usbccgp") rather than the leaves ("WinUSB") 
+  => trying to obtain the FULL path (i.e. path that works with CreateFile) of the WinUSB leaves of a composite device handled by usbccgp is an absolute nightmare! 
+     For now, just replace the composite driver with a WinUSB one. Install is a pain (must force upgrade), but it works. ["FIXED": 2009.12.16]
 }}}
