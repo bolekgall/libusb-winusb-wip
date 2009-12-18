@@ -11,9 +11,13 @@ o xusb winusb test application
 o async (polled/overlapped) I/O
   - crude poll using OVERLAPPED pointers as fds + HasOverlappedIoCompleted [DONE: 2009.12.16]
   - control transfers [DON]
+  - retrieve actual length [DONE: 2009.12.16]
   - bulk/interrupt
-  - retrieve actual length
   - create OVERLAPPED in open rather than submit and reuse it?
+o the never ending multiple interfaces handling
+  - generic readout of registry keys and values [DON]
+  - retrieve full device path from HKLM\SYSTEM\ControlSet001\Control\DeviceClasses\* [DON]
+  - WinUSB interface selection through MI_## 
 o control fd ("fish in the pipe") for poll
   => can we make it fly without modifying main if we use OVERLAPPED* for poll fds?
 o better/multiple API handling (refer to libusb-win32-v1)
@@ -35,4 +39,6 @@ o deviceless external hub random failure on descriptors. Is there anything we ca
 o SetupDI### call enumerates composite devices at the root ("usbccgp") rather than the leaves ("WinUSB") 
   => trying to obtain the FULL path (i.e. path that works with CreateFile) of the WinUSB leaves of a composite device handled by usbccgp is an absolute nightmare! 
      For now, just replace the composite driver with a WinUSB one. Install is a pain (must force upgrade), but it works. ["FIXED": 2009.12.16]
+o Well, above doesn't work for interface selection through WinUsb_GetAssociatedInterface (what the ???)
+  => back to the (more versatile) separate MI_## for composite devices' interfaces ["RE-FIXED": 2009.12.17]
 }}}
