@@ -13,14 +13,14 @@ o async (polled/overlapped) I/O
   - control transfers [DON]
   - retrieve actual length [DONE: 2009.12.16]
   - bulk/interrupt
-  - create OVERLAPPED in open rather than submit and reuse it?
 o the never ending multiple interfaces handling
-  - generic readout of registry keys and values [DON]
-  - retrieve full device path from HKLM\SYSTEM\ControlSet001\Control\DeviceClasses\* [DON]
-  - WinUSB interface selection through MI_## 
+  - generic readout of registry keys and values [DONE: 2009.12.18]
+  - retrieve full device path from HKLM\SYSTEM\ControlSet001\Control\DeviceClasses\* [DONE: 2009.12.18]
+  - WinUSB interface selection through MI_## [DONE: 2009.12.18]
 o control fd ("fish in the pipe") for poll
   => can we make it fly without modifying main if we use OVERLAPPED* for poll fds?
-o better/multiple API handling (refer to libusb-win32-v1)
+o better/multiple API handling (refer to libusb-win32-v1) [API_CALL macro - DONE: 2009.12.18]
+o sanitize_path & windows_error_string improvements [DONE: 2009.12.18]
 o multithreading
 
 EXTRAS:
