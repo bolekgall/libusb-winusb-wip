@@ -17,10 +17,12 @@ o the never ending multiple interfaces handling
   - generic readout of registry keys and values [DONE: 2009.12.18]
   - retrieve full device path from HKLM\SYSTEM\ControlSet001\Control\DeviceClasses\* [DONE: 2009.12.18]
   - WinUSB interface selection through MI_## [DONE: 2009.12.18]
-o control fd ("fish in the pipe") for poll
-  => can we make it fly without modifying main if we use OVERLAPPED* for poll fds?
+o poll & pipe redesign
+  - support for control fd ("fish in the pipe") [DONE: 2009.12.19]
+  - overlapped support all the way [DON]
 o better/multiple API handling (refer to libusb-win32-v1) [API_CALL macro - DONE: 2009.12.18]
 o sanitize_path & windows_error_string improvements [DONE: 2009.12.18]
+o test on WinXP
 o multithreading
 
 EXTRAS:
@@ -41,4 +43,5 @@ o SetupDI### call enumerates composite devices at the root ("usbccgp") rather th
      For now, just replace the composite driver with a WinUSB one. Install is a pain (must force upgrade), but it works. ["FIXED": 2009.12.16]
 o Well, above doesn't work for interface selection through WinUsb_GetAssociatedInterface (what the ???)
   => back to the (more versatile) separate MI_## for composite devices' interfaces ["RE-FIXED": 2009.12.17]
+o poll says control fd overlapped IO complete
 }}}
