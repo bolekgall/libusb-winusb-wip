@@ -20,6 +20,7 @@ o the never ending multiple interfaces handling
 o poll & pipe redesign
   - support for control fd ("fish in the pipe") [(actually) DONE: 2009.12.22]
   - overlapped support all the way [DONE: 2009.12.22]
+  - mutex fd locking [DONE: 2009.12.23]
 o better/multiple API handling (refer to libusb-win32-v1) [API_CALL macro - DONE: 2009.12.18]
 o sanitize_path & windows_error_string improvements [DONE: 2009.12.18]
 o test on WinXP
@@ -44,4 +45,5 @@ o SetupDI### call enumerates composite devices at the root ("usbccgp") rather th
 o Well, above doesn't work for interface selection through WinUsb_GetAssociatedInterface (what the ???)
   => back to the (more versatile) separate MI_## for composite devices' interfaces ["RE-FIXED": 2009.12.17]
 o poll says control fd overlapped IO complete [FIXED with a "poll we can believe in": 2009.12.22]
+o bad composite device detection when device and hub have same port number [FIXED 2009.12.23: Don't use sizeof when you mean strlen!]
 }}}
