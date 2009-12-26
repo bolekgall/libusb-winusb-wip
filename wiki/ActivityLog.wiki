@@ -46,4 +46,7 @@ o Well, above doesn't work for interface selection through WinUsb_GetAssociatedI
   => back to the (more versatile) separate MI_## for composite devices' interfaces ["RE-FIXED": 2009.12.17]
 o poll says control fd overlapped IO complete [FIXED with a "poll we can believe in": 2009.12.22]
 o bad composite device detection when device and hub have same port number [FIXED 2009.12.23: Don't use sizeof when you mean strlen!]
+o use of ControlSet001 instead of CurrentControlSet[FIXED 2009.12.26]
+o incorrect function on force_hcd_device_descriptor on XP [FIXED 2009.12.26: misplaced _EX]
+o Location Information on XP does NOT return location information! [XP bug - dammit!]
 }}}
