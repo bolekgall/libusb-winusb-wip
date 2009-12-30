@@ -17,22 +17,22 @@ o the never ending multiple interfaces handling
   - generic readout of registry keys and values [DONE: 2009.12.18]
   - retrieve full device path from HKLM\SYSTEM\ControlSet001\Control\DeviceClasses\* [DONE: 2009.12.18]
   - WinUSB interface selection through MI_## [DONE: 2009.12.18]
+  - new non-controversial interface enumeration through SetupDi [DONE: 2009.12.30]
+  - WinUSB detection for interfaces [DONE: 2009.12.30]
 o poll & pipe redesign
   - support for control fd ("fish in the pipe") [(actually) DONE: 2009.12.22]
   - overlapped support all the way [DONE: 2009.12.22]
   - mutex fd locking [DONE: 2009.12.23]
 o better/multiple API handling (refer to libusb-win32-v1) [API_CALL macro - DONE: 2009.12.18]
 o sanitize_path & windows_error_string improvements [DONE: 2009.12.18]
-o test on WinXP
+o test on WinXP [OK: 2009.12.30]
 o multithreading
 
 EXTRAS:
 o add elementary HID (non WinUSB) handling so that we get the feel of how APIs should be broken down 
   => without interface and endpoint access through HID layer, not sure how far we can get
 o hotplug
-o automated driver installation. requires: (install will need to  - is that doable easily?)
-  - proper detection on driverless devices (code 28?)
-  - detection of composite devices and (in the current MI_##-less scheme) "upgrade" of usbccgp.sys to WinUSB
+o automated driver installation. 
 o is there a way to disable google's annoying <pre> colouring on this wiki?
 o use usbi list functions for our hcd chained list
 
@@ -48,5 +48,5 @@ o poll says control fd overlapped IO complete [FIXED with a "poll we can believe
 o bad composite device detection when device and hub have same port number [FIXED 2009.12.23: Don't use sizeof when you mean strlen!]
 o use of ControlSet001 instead of CurrentControlSet[FIXED 2009.12.26]
 o incorrect function on force_hcd_device_descriptor on XP [FIXED 2009.12.26: misplaced _EX]
-o Location Information on XP does NOT return location information! [XP bug - dammit!]
+o Location Information on XP does NOT return location information! [WORKAROUND: 2009.12.30]
 }}}
