@@ -8,11 +8,15 @@ o actually read active configuration from conn_info [DONE: 2009.12.15]
 o comment the inf with regards to CoInstallers' choice and add provision for Multiple Interfaces (MI_##)
 o xusb winusb test application
   - add string I/O to xusb [DONE: 2009.12.15]
+  - full XBox controller support using control requests [DONE: 2010.01.03]
+  - bulk I/O against USB key (Bulk-only Mass Storage) [DONE: 2010.01.04]
 o async (polled/overlapped) I/O
   - crude poll using OVERLAPPED pointers as fds + HasOverlappedIoCompleted [DONE: 2009.12.16]
-  - control transfers [DON]
+  - control transfers [DONE: 2010.01.02]
   - retrieve actual length [DONE: 2009.12.16]
-  - bulk/interrupt
+  - bulk/interrupt [DONE: 2010.01.04]
+  - I/O cancellation
+o device reset
 o the never ending multiple interfaces handling
   - generic readout of registry keys and values [DONE: 2009.12.18]
   - retrieve full device path from HKLM\SYSTEM\ControlSet001\Control\DeviceClasses\* [DONE: 2009.12.18]
@@ -35,6 +39,7 @@ o hotplug
 o automated driver installation. 
 o is there a way to disable google's annoying <pre> colouring on this wiki?
 o use usbi list functions for our hcd chained list
+o re-write device enumeration from scratch to avoid controversial XP workaround
 
 BUGFIXES:
 o deviceless external hub random failure on descriptors. Is there anything we can do?
@@ -49,4 +54,5 @@ o bad composite device detection when device and hub have same port number [FIXE
 o use of ControlSet001 instead of CurrentControlSet[FIXED 2009.12.26]
 o incorrect function on force_hcd_device_descriptor on XP [FIXED 2009.12.26: misplaced _EX]
 o Location Information on XP does NOT return location information! [WORKAROUND: 2009.12.30]
+o everlasting wait on devices that have gone to sleep?
 }}}
