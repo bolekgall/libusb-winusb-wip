@@ -15,8 +15,8 @@ o async (polled/overlapped) I/O
   - control transfers [DONE: 2010.01.02]
   - retrieve actual length [DONE: 2009.12.16]
   - bulk/interrupt [DONE: 2010.01.04]
-  - I/O cancellation
-o device reset
+  - I/O cancellation [DONE: 2010.01.05]
+o device reset [DONE: 2010.01.05]
 o the never ending multiple interfaces handling
   - generic readout of registry keys and values [DONE: 2009.12.18]
   - retrieve full device path from HKLM\SYSTEM\ControlSet001\Control\DeviceClasses\* [DONE: 2009.12.18]
