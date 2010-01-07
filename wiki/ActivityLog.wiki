@@ -54,6 +54,7 @@ o bad composite device detection when device and hub have same port number [FIXE
 o use of ControlSet001 instead of CurrentControlSet[FIXED 2009.12.26]
 o incorrect function on force_hcd_device_descriptor on XP [FIXED 2009.12.26: misplaced _EX]
 o Location Information on XP does NOT return location information! [WORKAROUND: 2009.12.30]
-o everlasting wait on devices that have gone to sleep?
-o reset of Mass Storage devices sure doesn't seem to work as expected...
+o everlasting wait on devices that have gone to sleep? / timeouts don't work [FIXED: 2010.01.07]
+o reset of Mass Storage devices sure doesn't seem to work as expected... [IT DOES when you don't forget the CSW query: 2010.01.07]
+o crashes in pthreadGC2.dll when poll is unhappy about an fd [FIXED: 2010.01.07]
 }}}
