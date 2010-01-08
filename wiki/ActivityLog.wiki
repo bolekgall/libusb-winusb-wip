@@ -30,9 +30,11 @@ o poll & pipe redesign
 o better/multiple API handling (refer to libusb-win32-v1) [API_CALL macro - DONE: 2009.12.18]
 o sanitize_path & windows_error_string improvements [DONE: 2009.12.18]
 o test on WinXP [OK: 2009.12.30]
+o test against openocd/libftdi [OK: 2010.01.08]
 o multithreading
 
 EXTRAS:
+o auto-claiming interface for control transfers if none available [DONE: 2010.01.08]
 o add elementary HID (non WinUSB) handling so that we get the feel of how APIs should be broken down 
   => without interface and endpoint access through HID layer, not sure how far we can get
 o hotplug
