@@ -5,7 +5,7 @@ o detect WinUSB during enum to prevent WinUSB calls on non WinUSB devives [DONE 
 o detect driverless devices during enum for future automated WinUSB driver addon
   - conn_info.CurrentConfigurationValue false => priv->driver = "no_driver" [DONE: 2009.12.14]
 o actually read active configuration from conn_info [DONE: 2009.12.15]
-o comment the inf with regards to CoInstallers' choice and add provision for Multiple Interfaces (MI_##)
+o comment the inf with regards to CoInstallers' choice and add provision for Multiple Interfaces (MI_##) [DONE: 2010.01.08]
 o xusb winusb test application
   - add string I/O to xusb [DONE: 2009.12.15]
   - full XBox controller support using control requests [DONE: 2010.01.03]
@@ -34,6 +34,7 @@ o test against openocd/libftdi [OK: 2010.01.08]
 o multithreading
 
 EXTRAS:
+o MSVC full compilation (preferred) or MSVC compatible MinGW lib with MSVC test sample
 o auto-claiming interface for control transfers if none available [DONE: 2010.01.08]
 o add elementary HID (non WinUSB) handling so that we get the feel of how APIs should be broken down 
   => without interface and endpoint access through HID layer, not sure how far we can get
@@ -42,6 +43,7 @@ o automated driver installation.
 o is there a way to disable google's annoying <pre> colouring on this wiki?
 o use usbi list functions for our hcd chained list
 o re-write device enumeration from scratch to avoid controversial XP workaround
+o Win2k support? (Not from me!)
 
 BUGFIXES:
 o deviceless external hub random failure on descriptors. Is there anything we can do?
