@@ -961,7 +961,7 @@ static int set_device_paths(struct libusb_context *ctx, struct discovered_devs *
 	GUID guid;
 	DWORD size, reg_type;
 	int	r = LIBUSB_SUCCESS;
-	unsigned i, j, port_nr, hub_nr;
+	unsigned i, j, j_max, port_nr, hub_nr;
 	bool found;
 
 	// TODO: MI_## automated driver installation:
@@ -1007,6 +1007,7 @@ static int set_device_paths(struct libusb_context *ctx, struct discovered_devs *
 			for (j=0; j<safe_strlen(dev_interface_details->DevicePath); j++) {
 				if ( (dev_interface_details->DevicePath[j] == '{') 
 				  && (dev_interface_details->DevicePath[j-1] == '#') ) {
+					  j_max = j-1;
 					// Matched '#{'. Now go back to last delimiter
 					for (; j>=0; j--) {
 						if (dev_interface_details->DevicePath[j] == '&') {
@@ -1015,7 +1016,12 @@ static int set_device_paths(struct libusb_context *ctx, struct discovered_devs *
 						}
 					}
 					if (found) {
-						if (sscanf(&dev_interface_details->DevicePath[j+1], "%d#{%*s", &port_nr) != 1) {
+						j++;
+						// The port number should only be 1 or 2 chars long
+						if (((j_max - j) != 1) && ((j_max - j) != 2)) {
+							found = false;
+						} else if (sscanf(&dev_interface_details->DevicePath[j], 
+							"%d#{%*s", &port_nr) != 1) {
 							found = false;
 						}
 					}
