@@ -33,14 +33,15 @@ o test on WinXP [OK: 2009.12.30]
 o test against openocd/libftdi [OK: 2010.01.08]
 o test x64 builds in MSVC
 o multithreading
-o handle composite interfaces with different drivers
+o better composite interfaces handling, with fully independent interface and composite device drivers
 o write some detailed notes for pthread-win32 integration on project page
+o write a detailed guide for manual installation of the WinUSB driver
 
 EXTRAS:
 o MSVC full compilation (preferred) or MSVC compatible MinGW lib with MSVC test sample
   - MSVC6 compatibility for windows_usb.c & windows_usb.h only (Michael Plante) [DONE: 2010.01.11]
   - MSVC9 full compatibility [DONE: 2010.01.11]
-  - MSVC6 full compatibility?
+  - MSVC6 full compatibility [DON]
 o auto-claiming interface for control transfers if none available [DONE: 2010.01.08]
 o add elementary HID (non WinUSB) handling so that we get the feel of how APIs should be broken down 
   => without interface and endpoint access through HID layer, not sure how far we can get
@@ -48,7 +49,6 @@ o hotplug
 o automated driver installation. 
 o is there a way to disable google's annoying <pre> colouring on this wiki?
 o use usbi list functions for our hcd chained list
-o re-write device enumeration from scratch to avoid controversial XP workaround
 o Win2k support? (Not from me!)
 
 BUGFIXES:
@@ -68,4 +68,6 @@ o everlasting wait on devices that have gone to sleep? / timeouts don't work [FI
 o reset of Mass Storage devices sure doesn't seem to work as expected... [IT DOES when you don't forget the CSW query: 2010.01.07]
 o crashes in pthreadGC2.dll when poll is unhappy about an fd [FIXED: 2010.01.07]
 o doesn't use the default pthread-win32 library name on MinGW [FIXED: 2010.01.11]
+o the infamous device with serial => no port# issue on XP [FIXED: 2010.01.12]
+o 'CM_GETIDLIST_FILTER_BITS' macro redefinition error in cfgmgr32.h for Windows 7
 }}}
