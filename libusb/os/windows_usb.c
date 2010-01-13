@@ -821,7 +821,6 @@ static int set_composite_device(struct libusb_context *ctx, DEVINST devinst, str
 	SP_DEVINFO_DATA dev_info_data;
 	SP_DEVICE_INTERFACE_DETAIL_DATA *dev_interface_details = NULL;
 	HKEY key;
-	char guid_string[GUID_STRING_LENGTH];
 	WCHAR guid_string_w[GUID_STRING_LENGTH];
 	GUID guid;
 	GUID guid_table[MAX_USB_DEVICES];
@@ -850,17 +849,13 @@ static int set_composite_device(struct libusb_context *ctx, DEVINST devinst, str
 			continue;
 		}
 
-		// I can't believe it either, but RegQueryvalueExW and RegQueryvalueExA don't see the same thing
-		// => use ExA and do a manual conversion before calling OLE32's CLSIDFromString
-		if (RegQueryValueExA(key, "DeviceInterfaceGUIDs", NULL, &type, (BYTE*)guid_string, &size) != ERROR_SUCCESS) {
+		size = sizeof(guid_string_w);
+		if (RegQueryValueExW(key, L"DeviceInterfaceGUIDs", NULL, &type,
+			(BYTE*)guid_string_w, &size) != ERROR_SUCCESS) {
 			RegCloseKey(key);
 			continue;
 		}
 		RegCloseKey(key);
-		// This conversion is safe for GUID strings
-		for (j=0; j<GUID_STRING_LENGTH; j++) {
-			guid_string_w[j] = guid_string[j];
-		}
 		CLSIDFromString(guid_string_w, &guid);
 
 		// identical device interface GUIDs are not supposed to happen, but are a real possibility
@@ -902,7 +897,6 @@ static int set_composite_device(struct libusb_context *ctx, DEVINST devinst, str
 				usbi_warn(ctx, "could not retrieve info data: %s", windows_error_str(0));
 				continue;
 			}
-			usbi_dbg("found path: %s", dev_interface_details->DevicePath);
 
 			if(!SetupDiGetDeviceRegistryProperty(dev_info, &dev_info_data, SPDRP_SERVICE, 
 				NULL, (BYTE*)driver, MAX_KEY_LENGTH, &size)) {
@@ -919,7 +913,6 @@ static int set_composite_device(struct libusb_context *ctx, DEVINST devinst, str
 			}
 		}
 	}
-	usbi_dbg("found %d paths", nb_paths);
 
 	// Finally, match the interface paths with the interfaces. We do that 
 	// by looking at the children of the composite device
