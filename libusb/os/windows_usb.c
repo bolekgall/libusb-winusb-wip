@@ -987,8 +987,12 @@ static int set_device_paths(struct libusb_context *ctx, struct discovered_devs *
 	GUID guid;
 	DWORD size, reg_type, port_nr;
 	int	r = LIBUSB_SUCCESS;
-	unsigned i, j;
+	unsigned i, j, nb_composite = 0;
 	bool found;
+	struct {
+		DWORD devinst;
+		struct windows_device_priv *priv;
+	} composite[MAX_USB_DEVICES];
 
 	// TODO: MI_## automated driver installation:
 	guid = GUID_DEVINTERFACE_USB_DEVICE; 
@@ -1080,13 +1084,8 @@ static int set_device_paths(struct libusb_context *ctx, struct discovered_devs *
 					// For non composite, the first interface is the same as the device
 					priv->interface[0].path = safe_strdup(priv->path);	// needs strdup
 				} else if (safe_strcmp(reg_key, "usbccgp") == 0) {
-					// Composite (multi-interface) devices are identified by their use of 
-					// the USB Common Class Generic Parent driver
-					if (set_composite_device(ctx, dev_info_data.DevInst, priv) == LIBUSB_SUCCESS) {
-						priv->apib = &windows_winusb_backend;
-					} else {
-						priv->apib = &windows_template_backend;
-					}
+					composite[nb_composite].devinst = dev_info_data.DevInst;
+					composite[nb_composite++].priv = priv;
 				} else {
 					// All other USB access drivers (HID, Mass Storage) are ignored for now
 				}
@@ -1094,8 +1093,18 @@ static int set_device_paths(struct libusb_context *ctx, struct discovered_devs *
 			}
 		}
 		if (!found) {
-			usbi_warn(ctx, "could not match %s with a libusb device.", dev_interface_details->DevicePath);
+			usbi_warn(ctx, "could not match %s with a libusb device (sanitized_path = %s).", 
+				dev_interface_details->DevicePath, sanitized_path);
 			continue;
+		}
+	}
+	for (i=0; i<nb_composite; i++) {
+		// Composite (multi-interface) devices are identified by their use of 
+		// the USB Common Class Generic Parent driver
+		if (set_composite_device(ctx, composite[i].devinst, composite[i].priv) == LIBUSB_SUCCESS) {
+			composite[i].priv->apib = &windows_winusb_backend;
+		} else {
+			composite[i].priv->apib = &windows_template_backend;
 		}
 	}
 
